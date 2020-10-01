@@ -13,6 +13,7 @@ public class run {
     
     public static void main(String[] args) {
         Bastidor bastidor=new Bastidor();
+       
         bastidor.setVisible(true);
     }
     

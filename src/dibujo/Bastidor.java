@@ -5,6 +5,9 @@
  */
 package dibujo;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 /**
  *
  * @author Jorge Eliu
@@ -19,9 +22,10 @@ public class Bastidor extends javax.swing.JFrame {
     public Bastidor() {
         
         //x=10, y=10
-        lienzo.setBounds(0, 0, 400, 400);
+        lienzo.setBounds(10, 10, 400, 400);
         this.add(lienzo);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,34 +37,45 @@ public class Bastidor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnLanzarCania = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Patolli");
+        setLocation(new java.awt.Point(0, 0));
 
-        jButton1.setText("Lanzar Cañas");
+        btnLanzarCania.setText("Lanzar Cañas");
+        btnLanzarCania.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLanzarCaniaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(485, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
+                .addContainerGap(479, Short.MAX_VALUE)
+                .addComponent(btnLanzarCania)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(457, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(458, Short.MAX_VALUE)
+                .addComponent(btnLanzarCania, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
+       
+    }//GEN-LAST:event_btnLanzarCaniaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLanzarCania;
     // End of variables declaration//GEN-END:variables
 }

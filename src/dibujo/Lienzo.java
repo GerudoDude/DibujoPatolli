@@ -19,10 +19,15 @@ import java.awt.geom.Ellipse2D;
  * @author Jorge Eliu
  */
 public class Lienzo extends Canvas {
+    
+    
     /**
      * Metodo que pinta el Jframe que se añadio
      * @param g graficos del JFrame
      * */
+    
+    Color colorDefault=Color.LIGHT_GRAY;
+    
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -33,16 +38,19 @@ public class Lienzo extends Canvas {
         rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
         g2d.draw(rect);
         g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
-
-        g2d.setColor(Color.WHITE);
+        
+        g2d.setColor(colorDefault);
         g2d.setStroke(new BasicStroke(2));
 
         //Configuracion
-        int x = (int) rect.getCenterX(), y = (int) rect.getCenterY(), ancho = 20, alto = 20, tam = 8;
+        int x = (int) rect.getCenterX()-22, y = (int) rect.getCenterY()-22, ancho = 20, alto = 20, tam = 8;
 
         dibujarTablero(x, y, ancho, alto, tam, g2d);
 
-        dibujarficha(x, y, ancho, alto, g2d);
+        dibujarficha(x, y+(ancho*0), ancho, alto,Color.ORANGE, g2d);
+        dibujarficha(x, y+(ancho*1), ancho, alto, Color.BLUE, g2d);
+        
+        
 
     }
     /**
@@ -51,17 +59,17 @@ public class Lienzo extends Canvas {
      * @param y Posicion y donde se va crear
      * @param ancho Lo ancho que va ser la ficha
      * @param alto Lo alto que va ser la ficha
+     * @param color Seleccionas el color de la ficha
      * @param g2d Componente(JFrame) grafico actual
      */
-    public void dibujarficha(int x, int y, int ancho, int alto,  Graphics2D g2d) {
+    public void dibujarficha(int x, int y, int ancho, int alto, Color color,  Graphics2D g2d) {
         g2d.setStroke(new BasicStroke(1));
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(color);
         Ellipse2D.Double ficha = new Ellipse2D.Double(x + (ancho / 7), y + (alto / 7), ancho - (ancho / 4), alto - (alto / 4));
         g2d.fill(ficha);
         g2d.setColor(Color.BLACK);
         g2d.draw(ficha);
     }
-    
     /**
      * Dibuja el tablero
      * Posicion
@@ -153,7 +161,7 @@ public class Lienzo extends Canvas {
                 dibujarUnCuadroCurva(x, y, ancho * 2, alto, 90, 180, g);
                 continue;
             }
-
+            
             dibujarUnCuadro(x, y, ancho, alto, g);
             x -= ancho;
         }
@@ -194,6 +202,7 @@ public class Lienzo extends Canvas {
             dibujarUnCuadro(x, y + alto, ancho, alto, g);
             x += ancho;
         }
+        g.setColor(colorDefault);
     }
     /**
      * Dibuja un Cuadro
@@ -204,9 +213,14 @@ public class Lienzo extends Canvas {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadro(int x, int y, int ancho, int alto, Graphics2D g) {
+      
+        
         Rectangle rect = new Rectangle();
         rect.setBounds(x, y, ancho, alto);
+        
         g.draw(rect);
+        
+       
     }
     /**
      * Dibuja un cuadro curvado
@@ -219,7 +233,11 @@ public class Lienzo extends Canvas {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadroCurva(int x, int y, int ancho, int alto, int startAngle, int grade, Graphics2D g) {
+        g.setColor(Color.GRAY);
         g.drawArc(x, y, ancho, alto, startAngle, grade);
-
+        g.setColor(colorDefault);
+        
     }
+
+
 }
