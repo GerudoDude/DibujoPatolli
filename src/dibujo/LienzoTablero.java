@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dibujo;
 
+/* Librerias a utilizar */
 import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -17,20 +13,16 @@ import java.awt.geom.Ellipse2D;
 
 /**
  *
- * @author Jorge Eliu
+ * @author Equipo 5
  */
 public class LienzoTablero extends Canvas {
 
-    /**
-     * Metodo que pinta el Jframe que se añadio
-     *
-     * @param g graficos del JFrame
-     *
-     */
-    Color colorDefault = Color.DARK_GRAY;
+    /* Metodo que pinta el Jframe que se añadio */
+    Color colorDefault = Color.DARK_GRAY; //Se le pone el color gris oscuro
     static boolean sentido = true;
 
     @Override
+    /* Metodo que dibuja tablero, la ficha y el rectangulo que los rodea */
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -39,7 +31,7 @@ public class LienzoTablero extends Canvas {
         Rectangle rect = new Rectangle();
         rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
         g2d.draw(rect);
-         g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
+        g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
 
         g2d.setColor(colorDefault);
         g2d.setStroke(new BasicStroke(2));
@@ -150,7 +142,6 @@ public class LienzoTablero extends Canvas {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarAbajo(int x, int y, int ancho, int alto, int cuantos, Graphics2D g) {
-
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
@@ -165,7 +156,6 @@ public class LienzoTablero extends Canvas {
                 dibujarUnCuadroCurva(x, y - alto, ancho, alto * 2, 180, 180, g);
                 continue;
             }
-
             dibujarUnCuadro(x, y, ancho, alto, g);
             y += alto;
         }
@@ -197,7 +187,6 @@ public class LienzoTablero extends Canvas {
                 dibujarUnCuadroCurva(x, y, ancho * 2, alto, 90, 180, g);
                 continue;
             }
-
             dibujarUnCuadro(x, y, ancho, alto, g);
             x -= ancho;
         }
@@ -265,7 +254,6 @@ public class LienzoTablero extends Canvas {
         Rectangle rect = new Rectangle();
         rect.setBounds(x, y, ancho, alto);
         g.draw(rect);
-
     }
 
     /**
@@ -322,7 +310,5 @@ public class LienzoTablero extends Canvas {
                 break;
         }
         g.setColor(colorDefault);
-
     }
-
 }
