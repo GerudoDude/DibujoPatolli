@@ -19,7 +19,7 @@ import java.awt.geom.Ellipse2D;
  *
  * @author Jorge Eliu
  */
-public class Lienzo extends Canvas {
+public class LienzoTablero extends Canvas {
 
     /**
      * Metodo que pinta el Jframe que se añadio
@@ -27,7 +27,7 @@ public class Lienzo extends Canvas {
      * @param g graficos del JFrame
      *
      */
-    Color colorDefault = Color.LIGHT_GRAY;
+    Color colorDefault = Color.DARK_GRAY;
     static boolean sentido = true;
 
     @Override
@@ -280,7 +280,7 @@ public class Lienzo extends Canvas {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadroCurva(int x, int y, int ancho, int alto, int startAngle, int grade, Graphics2D g) {
-        g.setColor(Color.GRAY);
+        //g.setColor(Color.GRAY);
         g.drawArc(x, y, ancho, alto, startAngle, grade);
         g.setColor(colorDefault);
     }

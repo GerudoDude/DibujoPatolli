@@ -18,12 +18,14 @@ public class Bastidor extends javax.swing.JFrame {
      * Creates new form Bastidor1
      */
    // Lienzo lienzo=new Lienzo();
-    Lienzo lienzo=new Lienzo();
+    LienzoTablero lienzo=new LienzoTablero();
+    LienzoCanias lienzo2=new LienzoCanias();
     public Bastidor() {
         
-        //x=10, y=10
         lienzo.setBounds(10, 10, 400, 400);
+        lienzo2.setBounds(10, 420, 400, 100);
         this.add(lienzo);
+        this.add(lienzo2);
         initComponents();
         this.setLocationRelativeTo(null);
     }
