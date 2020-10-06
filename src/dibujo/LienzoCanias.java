@@ -16,11 +16,11 @@ import java.awt.geom.Ellipse2D;
  *
  */
 public class LienzoCanias extends Canvas {
-
+    private Graphics2D g2d;
     @Override
     /* Metodo que dibuja las canias */
     public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
+         g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
 
@@ -31,12 +31,19 @@ public class LienzoCanias extends Canvas {
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
 
-        int x = 0, y = 0, ancho = 20, alto = 20;
-        boolean[] canias = {false, false, false, false, true};
+        
+      
 
-        DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
+        
     }
 
+    public void LanzarCanias(boolean[] canias){
+        
+        int x = 0, y = 0, ancho = 20, alto = 20;
+        DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
+       
+    }
+    
     /* Metodo que dibuja cuando se lanzan las canias */
     public void DibujarLanzarcanias(boolean[] canias, int x, int y, int ancho, int alto, Graphics2D g) {
         for (int i = 0; i < 5; i++) {

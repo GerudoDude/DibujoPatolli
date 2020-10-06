@@ -3,6 +3,7 @@ package dibujo;
 /* Librearias a utilizar */
 import java.awt.Color;
 import java.awt.Graphics2D;
+import negocio.Cania;
 
 /**
  *
@@ -381,7 +382,9 @@ public class Bastidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
-    //Nada por ahora
+    Cania ca=new Cania();
+    boolean[] canias= ca.Roll();
+    lienzo2.LanzarCanias(canias);
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
 
 
