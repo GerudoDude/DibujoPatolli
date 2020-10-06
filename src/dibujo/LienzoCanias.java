@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentListener;
 import java.awt.geom.Ellipse2D;
 
 /**
@@ -17,25 +18,51 @@ import java.awt.geom.Ellipse2D;
  */
 public class LienzoCanias extends Canvas {
     private Graphics2D g2d;
+
+   
+    
     @Override
     /* Metodo que dibuja las canias */
     public void paint(Graphics g) {
-         g2d = (Graphics2D) g;
+       super.paint(g); 
+       g2d = (Graphics2D) g;
+       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+       g2d.setColor(Color.BLACK);
+       
+        Rectangle rect = new Rectangle();
+        g2d.clearRect(0, 0, this.getWidth() - 1, this.getHeight() - 1);
+        rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
+        g2d.draw(rect);
+
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(2));
+        
+        
+        
+        
+      
+
+        
+    }
+
+    @Override
+    public void repaint() {
+        super.repaint(); //To change body of generated methods, choose Tools | Templates.
+        
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
-
         Rectangle rect = new Rectangle();
         rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
         g2d.draw(rect);
 
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
-
-        
-      
-
-        
     }
+    
+    
+    
+   
+    
 
     public void LanzarCanias(boolean[] canias){
         

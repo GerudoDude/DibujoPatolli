@@ -18,7 +18,9 @@ public class Bastidor extends javax.swing.JFrame {
     /* Metodo que añade los lienzos */
     public Bastidor() {
         lienzo.setBounds(10, 10, 400, 400);
-        lienzo2.setBounds(10, 420, 400, 100);
+        
+        //lienzo2.setBounds(10, 420, 400, 100);
+        
         this.add(lienzo);
         this.add(lienzo2);
         initComponents();
@@ -382,6 +384,8 @@ public class Bastidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
+    this.getGraphics().clearRect(10, 440, 400, 100);
+    lienzo2.print(this.getGraphics().create(10, 440, 400, 100));
     Cania ca=new Cania();
     boolean[] canias= ca.Roll();
     lienzo2.LanzarCanias(canias);
