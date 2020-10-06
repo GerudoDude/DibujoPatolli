@@ -3,6 +3,7 @@ package dibujo;
 /* Librearias a utilizar */
 import java.awt.Color;
 import java.awt.Graphics2D;
+import javax.swing.JOptionPane;
 import negocio.Cania;
 
 /**
@@ -317,6 +318,11 @@ public class Bastidor extends javax.swing.JFrame {
         jLabel2.setText("Historial");
 
         btnSalir.setText("Salir del juego");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -375,9 +381,9 @@ public class Bastidor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(btnLanzarCania, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -390,6 +396,19 @@ public class Bastidor extends javax.swing.JFrame {
     boolean[] canias= ca.Roll();
     lienzo2.LanzarCanias(canias);
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+      try {
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Esta  seguro que desea salir del juego?", null,
+                    JOptionPane.YES_NO_OPTION);
+            if (respuesta == 0) {
+                System.exit(0);  
+                this.dispose();
+            }
+          }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
