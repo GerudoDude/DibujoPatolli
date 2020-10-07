@@ -1,8 +1,8 @@
 package dibujo;
 
 /* Librerias a utilizar */
+
 import java.awt.BasicStroke;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,20 +10,28 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Equipo 5
  */
-public class LienzoTablero extends Canvas {
+public class LienzoTablero extends JPanel {
+    private Color colorDefault;
+    private static boolean sentido;
+    public LienzoTablero(Color colorDefault) {
+        this.colorDefault=colorDefault;
+        this.sentido=true;
+    }
 
-    /* Metodo que pinta el Jframe que se añadio */
-    Color colorDefault = Color.DARK_GRAY; //Se le pone el color gris oscuro
-    static boolean sentido = true;
+    
+    
+  
+     
 
     @Override
     /* Metodo que dibuja tablero, la ficha y el rectangulo que los rodea */
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
@@ -41,8 +49,8 @@ public class LienzoTablero extends Canvas {
 
         dibujarTablero(x, y, ancho, alto, tam, g2d);
 
-        dibujarficha(x, y + (ancho * 0), ancho, alto, Color.ORANGE, g2d);
-        dibujarficha(x, y + (ancho * 1), ancho, alto, Color.BLUE, g2d);
+//        dibujarficha(x, y + (ancho * 0), ancho, alto, Color.ORANGE, g2d);
+//        dibujarficha(x, y + (ancho * 1), ancho, alto, Color.BLUE, g2d);
 
     }
 
@@ -174,6 +182,7 @@ public class LienzoTablero extends Canvas {
      */
     public void dibujarIzquierda(int x, int y, int ancho, int alto, int cuantos, Graphics2D g) {
         for (int i = 0; i < cuantos; i++) {
+            
             if (i == cuantos - 2) {
                 if (sentido == true) {
                     dibujarTriangulo(x, y, ancho, alto, Sentido.ABAJO, g);
@@ -251,6 +260,7 @@ public class LienzoTablero extends Canvas {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadro(int x, int y, int ancho, int alto, Graphics2D g) {
+        
         Rectangle rect = new Rectangle();
         rect.setBounds(x, y, ancho, alto);
         g.draw(rect);

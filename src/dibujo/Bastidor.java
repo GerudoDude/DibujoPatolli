@@ -2,7 +2,6 @@ package dibujo;
 
 /* Librearias a utilizar */
 import java.awt.Color;
-import java.awt.Graphics2D;
 import javax.swing.JOptionPane;
 import negocio.Cania;
 
@@ -12,19 +11,20 @@ import negocio.Cania;
  */
 public class Bastidor extends javax.swing.JFrame {
 
-    /* Se crean objetos de la clase LienzoTablero */
-    LienzoTablero lienzo = new LienzoTablero();
-    LienzoCanias lienzo2 = new LienzoCanias();
+   /* Se crean objetos de la clase LienzoTablero */
+    LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY);
+    LienzoCanias lienzoCanias = new LienzoCanias();
+    LienzoFicha lienzoFicha=new LienzoFicha();
 
     /* Metodo que añade los lienzos */
     public Bastidor() {
-        lienzo.setBounds(10, 10, 400, 400);
-        
-        //lienzo2.setBounds(10, 420, 400, 100);
-        
-        this.add(lienzo);
-        this.add(lienzo2);
         initComponents();
+        lienzoTablero.setBounds(10, 10, 400, 400);
+        lienzoCanias.setBounds(10, 420, 400, 100);
+        lienzoFicha.setBounds(10, 10, 400, 400);
+        this.add(lienzoTablero);
+        this.add(lienzoCanias);
+        this.add(lienzoFicha);
         this.setLocationRelativeTo(null);
     }
 
@@ -390,11 +390,10 @@ public class Bastidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
-    this.getGraphics().clearRect(10, 440, 400, 100);
-    lienzo2.print(this.getGraphics().create(10, 440, 400, 100));
     Cania ca=new Cania();
     boolean[] canias= ca.Roll();
-    lienzo2.LanzarCanias(canias);
+    lienzoCanias.setCanias(canias);
+    lienzoCanias.LanzarCanias();
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
