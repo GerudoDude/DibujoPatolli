@@ -25,5 +25,14 @@ public class Cania {
         return this.canias;
     }
     
+    public int getCaniasInt() {
+        int num = 0;
+        for (boolean cania : canias) {
+            num+=cania?1:0;
+        }
+        
+        return num;
+    }
+    
     
 }

@@ -10,6 +10,7 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -17,40 +18,52 @@ import javax.swing.JPanel;
  * @author Equipo 5
  */
 public class LienzoTablero extends JPanel {
+
     private Color colorDefault;
     private static boolean sentido;
+    private Graphics2D g2d;
+    private ArrayList listaFichas = new ArrayList();
+    private Posicion[] posCasillas;
+    private static int pasos = 0;
+    private int x, y, ancho, alto;
+    
+    FichaJugador f1;
+
     public LienzoTablero(Color colorDefault) {
-        this.colorDefault=colorDefault;
-        this.sentido=true;
+        this.colorDefault = colorDefault;
+        this.sentido = true;
     }
 
-    
-    
-  
-     
-
-    @Override
     /* Metodo que dibuja tablero, la ficha y el rectangulo que los rodea */
-    public void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
 
         Rectangle rect = new Rectangle();
         rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
         g2d.draw(rect);
+
         g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
 
         g2d.setColor(colorDefault);
         g2d.setStroke(new BasicStroke(2));
 
         //Configuracion
-        int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20, tam = 8;
+        int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20, tam = 7;
 
         dibujarTablero(x, y, ancho, alto, tam, g2d);
+        
+        f1 = new FichaJugador(x, y, ancho, alto, Color.yellow);
 
-//        dibujarficha(x, y + (ancho * 0), ancho, alto, Color.ORANGE, g2d);
-//        dibujarficha(x, y + (ancho * 1), ancho, alto, Color.BLUE, g2d);
+        if (posCasillas == null) {
+            this.posCasillas = escanearTablero(x, y, ancho, alto);
+        }
+
+        MoverFicha(f1, pasos); //enves de f1, una lista de fichas
 
     }
 
@@ -182,7 +195,7 @@ public class LienzoTablero extends JPanel {
      */
     public void dibujarIzquierda(int x, int y, int ancho, int alto, int cuantos, Graphics2D g) {
         for (int i = 0; i < cuantos; i++) {
-            
+
             if (i == cuantos - 2) {
                 if (sentido == true) {
                     dibujarTriangulo(x, y, ancho, alto, Sentido.ABAJO, g);
@@ -224,6 +237,7 @@ public class LienzoTablero extends JPanel {
             }
             if (i == cuantos - 1) {
                 dibujarUnCuadroCurva(x, y, ancho, alto * 2, 0, 180, g);
+//                  dibujarUnCuadroCurva(new Arco(x, y, ancho, alto*2,0,180), g);
                 continue;
             }
             dibujarUnCuadro(x, y, ancho, alto, g);
@@ -260,7 +274,7 @@ public class LienzoTablero extends JPanel {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadro(int x, int y, int ancho, int alto, Graphics2D g) {
-        
+
         Rectangle rect = new Rectangle();
         rect.setBounds(x, y, ancho, alto);
         g.draw(rect);
@@ -278,7 +292,7 @@ public class LienzoTablero extends JPanel {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadroCurva(int x, int y, int ancho, int alto, int startAngle, int grade, Graphics2D g) {
-        //g.setColor(Color.GRAY);
+
         g.drawArc(x, y, ancho, alto, startAngle, grade);
         g.setColor(colorDefault);
     }
@@ -289,6 +303,7 @@ public class LienzoTablero extends JPanel {
         int y1[];
 
         g.setColor(Color.BLACK);
+
         switch (sentido) {
             case ABAJO:
                 x1 = new int[]{x, x + ancho / 2, x + ancho};
@@ -320,5 +335,139 @@ public class LienzoTablero extends JPanel {
                 break;
         }
         g.setColor(colorDefault);
+    }
+
+    public void llamar(int pas) {
+        this.pasos += pas;
+        MoverFicha(f1, pas);
+        repaint();
+    }
+
+    public void MoverFicha(FichaJugador ficha, int pasos) {
+
+        g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
+
+        if (this.pasos > 60) {
+            this.pasos = 0;
+        }
+
+        int x1 = posCasillas[pasos].getPosicionX();
+        int y1 = posCasillas[pasos].getPosicionY();
+        ficha.setX(x1);
+        ficha.setY(y1);
+        dibujarficha(ficha, g2d);
+        pasos += pasos;
+
+    }
+
+    /**
+     * Dibuja la ficha
+     *
+     * @param ficha
+     * @param g2d Componente(JFrame) grafico actual
+     */
+    public void dibujarficha(FichaJugador ficha, Graphics2D g2d) {
+        g2d.setStroke(new BasicStroke(1));
+        g2d.setColor(ficha.getColor());
+
+        g2d.fill(ficha.getFigura());
+        g2d.setColor(Color.BLACK);
+
+        g2d.draw(ficha.getFigura());
+
+    }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param ancho
+     * @param alto
+     * @return
+     */
+    public Posicion[] escanearTablero(int x, int y, int ancho, int alto) {
+
+        posCasillas = new Posicion[60];
+        int i = 0;
+        // Astilla izquierda-Arriba
+        while (i < 8) {
+            posCasillas[i] = new Posicion(x, y);
+            x -= ancho;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        y += alto;
+        x += ancho;
+        //Astilla Izquierda-Abajo
+        while (i < 16) {
+            posCasillas[i] = new Posicion(x, y);
+            x += ancho;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        y += alto;
+        x -= ancho;
+        //Astilla Abajo-Izquierda
+        while (i < 23) {
+            posCasillas[i] = new Posicion(x, y);
+            y += alto;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        //Astilla Abajo-Derecha
+        x += ancho;
+        y -= alto;
+        while (i < 31) {
+            posCasillas[i] = new Posicion(x, y);
+            y -= alto;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        //Astilla Derecha-Abajo
+        x += ancho;
+        y += alto;
+        while (i < 38) {
+            posCasillas[i] = new Posicion(x, y);
+            x += ancho;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        //Astilla Derecha-Arriba
+        y -= alto;
+        x -= ancho;
+        while (i < 46) {
+            posCasillas[i] = new Posicion(x, y);
+            x -= ancho;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        //Astilla Arriba-Derecha
+        y -= alto;
+        x += ancho;
+        while (i < 53) {
+            posCasillas[i] = new Posicion(x, y);
+            y -= alto;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+            i++;
+        }
+        //Astilla Arriba-Izquierda
+        y += alto;
+        x -= ancho;
+        while (i < 60) {
+            posCasillas[i] = new Posicion(x, y);
+            y += alto;
+            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
+//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
+            i++;
+        }
+        return posCasillas;
     }
 }
