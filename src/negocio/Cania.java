@@ -28,7 +28,7 @@ public class Cania {
     public int getCaniasInt() {
         int num = 0;
         for (boolean cania : canias) {
-            num+=cania?1:0;
+            num+=cania?0:1;
         }
         
         return num;

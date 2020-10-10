@@ -134,10 +134,10 @@ public class LienzoTablero extends JPanel {
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.ABAJO, g);
+                    dibujarTriangulo(x-ancho/2, y, ancho, alto, Sentido.ABAJO, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.ARRIBA, g);
+                    dibujarTriangulo(x-ancho/2, y, ancho, alto, Sentido.ARRIBA, g);
                     sentido = true;
                 }
             }
@@ -166,10 +166,10 @@ public class LienzoTablero extends JPanel {
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.DERECHA, g);
+                    dibujarTriangulo(x, y-alto/2, ancho, alto, Sentido.DERECHA, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.IZQUIERDA, g);
+                    dibujarTriangulo(x, y-alto/2, ancho, alto, Sentido.IZQUIERDA, g);
                     sentido = true;
                 }
             }
@@ -198,10 +198,10 @@ public class LienzoTablero extends JPanel {
 
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.ABAJO, g);
+                    dibujarTriangulo(x+ancho/2, y, ancho, alto, Sentido.ABAJO, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.ARRIBA, g);
+                    dibujarTriangulo(x+ancho/2, y, ancho, alto, Sentido.ARRIBA, g);
                     sentido = true;
                 }
             }
@@ -228,10 +228,11 @@ public class LienzoTablero extends JPanel {
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.DERECHA, g);
+                    
+                    dibujarTriangulo(x, y+alto/2, ancho, alto, Sentido.DERECHA, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x, y, ancho, alto, Sentido.IZQUIERDA, g);
+                    dibujarTriangulo(x, y+alto/2, ancho, alto, Sentido.IZQUIERDA, g);
                     sentido = true;
                 }
             }
@@ -301,9 +302,9 @@ public class LienzoTablero extends JPanel {
         Polygon triangulo;
         int x1[];
         int y1[];
-
+          
         g.setColor(Color.BLACK);
-
+        
         switch (sentido) {
             case ABAJO:
                 x1 = new int[]{x, x + ancho / 2, x + ancho};
@@ -320,6 +321,7 @@ public class LienzoTablero extends JPanel {
                 g.drawPolygon(triangulo);
                 break;
             case DERECHA:
+                
                 x1 = new int[]{x, x + ancho, x};
                 y1 = new int[]{y, y + alto / 2, y + alto};
                 triangulo = new Polygon(x1, y1, 3);
@@ -327,6 +329,7 @@ public class LienzoTablero extends JPanel {
                 g.drawPolygon(triangulo);
                 break;
             case IZQUIERDA:
+                
                 x1 = new int[]{x + ancho, x, x + ancho};
                 y1 = new int[]{y, y + alto / 2, y + alto};
                 triangulo = new Polygon(x1, y1, 3);
