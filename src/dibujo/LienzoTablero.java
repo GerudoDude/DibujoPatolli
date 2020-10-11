@@ -25,7 +25,7 @@ public class LienzoTablero extends JPanel {
     private ArrayList listaFichas = new ArrayList();
     private Posicion[] posCasillas;
     private static int pasos = 0;
-    private int x, y, ancho, alto;
+    
     
     FichaJugador f1;
 
@@ -63,7 +63,7 @@ public class LienzoTablero extends JPanel {
             this.posCasillas = escanearTablero(x, y, ancho, alto);
         }
 
-        MoverFicha(f1, pasos); //enves de f1, una lista de fichas
+        moverFicha(f1, pasos); //enves de f1, una lista de fichas
 
     }
 
@@ -297,7 +297,15 @@ public class LienzoTablero extends JPanel {
         g.drawArc(x, y, ancho, alto, startAngle, grade);
         g.setColor(colorDefault);
     }
-
+    /**
+     * Dibuja un triangulo
+     * @param x Posicion x del cuadro
+     * @param y Posicion y del cuadro
+     * @param ancho Lo ancho que va ser el cuadro
+     * @param alto Lo alto que va ser el cuadro
+     * @param sentido Donde apuntar el triangulo
+     * @param g Componente(JFrame) grafico actual
+     */
     public void dibujarTriangulo(int x, int y, int ancho, int alto, Sentido sentido, Graphics2D g) {
         Polygon triangulo;
         int x1[];
@@ -339,14 +347,22 @@ public class LienzoTablero extends JPanel {
         }
         g.setColor(colorDefault);
     }
-
+    /**
+     * Llama a la ficha actual a moverse
+     * @param pas Cuantos movimientos tendra
+     */
     public void llamar(int pas) {
         this.pasos += pas;
-        MoverFicha(f1, pas);
+        moverFicha(f1, pas);
         repaint();
     }
-
-    public void MoverFicha(FichaJugador ficha, int pasos) {
+    
+    /**
+     * Hace mover la ficha escojida
+     * @param ficha Cual ficha se movera
+     * @param pasos Cunatos movimientos tendra
+     */
+    public void moverFicha(FichaJugador ficha, int pasos) {
 
         g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
 
@@ -381,12 +397,12 @@ public class LienzoTablero extends JPanel {
     }
 
     /**
-     *
-     * @param x
-     * @param y
-     * @param ancho
-     * @param alto
-     * @return
+     * Metodo que escanea el tablero con sus coordenadas para las fichas
+     * @param x Posicion x 
+     * @param y Posicion y 
+     * @param ancho Lo ancho que va ser el cuadro
+     * @param alto Lo alto que va ser el cuadro
+     * @return regresa todas coordenadas de cada cuadro respetando como es la trayectoria
      */
     public Posicion[] escanearTablero(int x, int y, int ancho, int alto) {
 
@@ -397,7 +413,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             x -= ancho;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         y += alto;
@@ -407,7 +423,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             x += ancho;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         y += alto;
@@ -417,7 +433,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             y += alto;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         //Astilla Abajo-Derecha
@@ -427,7 +443,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             y -= alto;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         //Astilla Derecha-Abajo
@@ -437,7 +453,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             x += ancho;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         //Astilla Derecha-Arriba
@@ -447,7 +463,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             x -= ancho;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         //Astilla Arriba-Derecha
@@ -457,7 +473,7 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             y -= alto;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
+
             i++;
         }
         //Astilla Arriba-Izquierda
@@ -467,7 +483,6 @@ public class LienzoTablero extends JPanel {
             posCasillas[i] = new Posicion(x, y);
             y += alto;
             System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-//            dibujarficha(posCasillas[i].getPosicionX(), posCasillas[i].getPosicionY(), ancho, alto, Color.yellow, g2d);
 
             i++;
         }
