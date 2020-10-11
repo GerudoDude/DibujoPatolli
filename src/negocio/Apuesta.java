@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package negocio;
 
 /**
  *
- * @author Citlali Orduño
+ * @author Equipo 5
  */
 public class Apuesta {
+    
+    /* Variable a utilizar */
     private int apuestaSemillas;
     
+    /* Constructor vacio */
     public void pagarApuesta (Jugador jugador){
-        
     }
 }

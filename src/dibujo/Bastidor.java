@@ -14,17 +14,14 @@ public class Bastidor extends javax.swing.JFrame {
    /* Se crean objetos de la clase LienzoTablero */
     LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY);
     LienzoCanias lienzoCanias = new LienzoCanias();
-  //  LienzoFicha lienzoFicha=new LienzoFicha();
 
     /* Metodo que añade los lienzos */
     public Bastidor() {
         initComponents();
         lienzoTablero.setBounds(10, 10, 400, 400);
         lienzoCanias.setBounds(10, 420, 400, 100);
-      //  lienzoFicha.setBounds(10, 10, 400, 400);
         this.add(lienzoTablero);
         this.add(lienzoCanias);
-        //this.add(lienzoFicha);
         this.setLocationRelativeTo(null);
     }
 
@@ -389,6 +386,8 @@ public class Bastidor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /* Metodo para que el boton haga la accion de lanzar canias, moviendo
+       la ficha segun indique las canias */
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
     Cania ca=new Cania();
     boolean[] canias= ca.Roll();
@@ -397,6 +396,9 @@ public class Bastidor extends javax.swing.JFrame {
     lienzoTablero.llamar(ca.getCaniasInt());
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
 
+    /* Metodo para que el boton salir le pregunte al usuario si esta seguro
+       de querer salir, en caso de que si finaliza el programa, sino solamente 
+       cierra el mensaje y sigue en el juego */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
       try {
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Esta  seguro que desea salir del juego?", null,

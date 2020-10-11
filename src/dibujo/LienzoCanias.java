@@ -17,64 +17,54 @@ import javax.swing.JPanel;
  *
  */
 public class LienzoCanias extends JPanel {
-    
-    private boolean[] canias=null;
+
+    private boolean[] canias = null;
     private Graphics2D g2d;
-    
-    
+
     @Override
     /* Metodo que dibuja las canias */
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
-        g.clearRect(0,0,getWidth(), getHeight());
+        g.clearRect(0, 0, getWidth(), getHeight());
 
-       
-       g2d=(Graphics2D) g;
-       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-       g2d.setColor(Color.BLACK);
-       
+        g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(Color.BLACK);
+
         Rectangle rect = new Rectangle();
-        
+
         rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
         g2d.draw(rect);
 
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
-        
+
         LanzarCanias(canias);
-        
     }
-    
-    
-    
-   
-    
-    
-    
-    
-    
-    public void setCanias(boolean[] canias){
-        this.canias=canias;
+
+    /* Set de la variable Canias */
+    public void setCanias(boolean[] canias) {
+        this.canias = canias;
     }
-    
-    public void LanzarCanias(){
-        if(canias!=null){
-        int x = 0, y = 0, ancho = 20, alto = 20;
-        DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
-        repaint();
-        }
-        
-    }
-    
-    
-    public void LanzarCanias(boolean[] canias){
-        if(canias!=null){
-        int x = 0, y = 0, ancho = 20, alto = 20;
-        DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
-        repaint();
+
+    /* Metodo para lanzar canias */
+    public void LanzarCanias() {
+        if (canias != null) {
+            int x = 0, y = 0, ancho = 20, alto = 20;
+            DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
+            repaint();
         }
     }
-    
+
+    /* Metodo que complementa lanzar canias */
+    public void LanzarCanias(boolean[] canias) {
+        if (canias != null) {
+            int x = 0, y = 0, ancho = 20, alto = 20;
+            DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
+            repaint();
+        }
+    }
+
     /* Metodo que dibuja cuando se lanzan las canias */
     public void DibujarLanzarcanias(boolean[] canias, int x, int y, int ancho, int alto, Graphics2D g) {
         for (int i = 0; i < 5; i++) {

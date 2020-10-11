@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package negocio;
 
 /**
  *
- * @author Citlali Orduño
+ * @author Equipo 5
  */
 public abstract class Casilla {
+    /* Variable a utilizar */
     private Ficha fichaActual;
     
+    /* Metodo del comportamiento de la ficha*/
     public abstract void Comportamiento(Ficha ficha);
 }

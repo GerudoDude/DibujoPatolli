@@ -1,33 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dibujo;
 
+/* Librerias a utilizar */
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 /**
  *
- * @author Jorge Eliu
+ * @author Equipo 5
  */
 public class FichaJugador {
-    
+
+    /* Variables a utilizar */
     private int x;
     private int y;
     private int ancho;
     private int alto;
     private Color color;
 
-    public FichaJugador(int x, int y, int ancho, int alto,Color color) {
+    /* Metodo constructor donde inicializa las variables */
+    public FichaJugador(int x, int y, int ancho, int alto, Color color) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
-        this.color=color;
+        this.color = color;
     }
 
+    /* Get y Sets de las variables */
     public int getX() {
         return x;
     }
@@ -67,13 +66,12 @@ public class FichaJugador {
     public void setColor(Color color) {
         this.color = color;
     }
-    
-    public Ellipse2D getFigura(){
-        
+
+    /* Metodo para obtener la figura de la ficha de cada jugador
+       en el tablero */
+    public Ellipse2D getFigura() {
         Ellipse2D.Double ficha = new Ellipse2D.Double(x + (ancho / 7), y + (alto / 7), ancho - (ancho / 4), alto - (alto / 4));
-        
+
         return ficha;
-        
     }
-    
 }

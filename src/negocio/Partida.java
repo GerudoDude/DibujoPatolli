@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package negocio;
 
 /**
  *
- * @author Citlali Orduño
+ * @author Equipo 5
  */
 public class Partida {
+
+    /* Variables a utilizar */
     private Cania cania;
     private Jugador[] jugadores;
     private Jugador jugadorActual;
     private Apuesta apuesta;
     private Tablero tablero;
 
+    /* Metodo constructor */
     public Partida() {
         this.cania = new Cania();
         this.jugadores = jugadores;
@@ -23,9 +21,8 @@ public class Partida {
         this.apuesta = apuesta;
         this.tablero = tablero;
     }
-    
-    
-    
+
+    /* Metodo constructor que inicializa las variables */
     public Partida(Cania cania, Jugador[] jugadores, Jugador jugadorActual, Apuesta apuesta, Tablero tablero) {
         this.cania = cania;
         this.jugadores = jugadores;
@@ -33,10 +30,8 @@ public class Partida {
         this.apuesta = apuesta;
         this.tablero = tablero;
     }
-    
-    
-    
-    
+
+    /* Get y sets de las variables */
     public Cania getCania() {
         return cania;
     }

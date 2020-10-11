@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package negocio;
+
+/* Librerias a utilizar */
 import java.awt.Color;
+
 /**
  *
- * @author Citlali Orduño
+ * @author Equipo 5
  */
 public class Ficha {
+    /* Variables a utilizar */
     private Color color;
     private String jugador;
 }

@@ -1,7 +1,6 @@
 package dibujo;
 
 /* Librerias a utilizar */
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,16 +18,16 @@ import javax.swing.JPanel;
  */
 public class LienzoTablero extends JPanel {
 
+    /* Variables a utilizar */
     private Color colorDefault;
     private static boolean sentido;
     private Graphics2D g2d;
     private ArrayList listaFichas = new ArrayList();
     private Posicion[] posCasillas;
     private static int pasos = 0;
-    
-    
     FichaJugador f1;
 
+    /* Metodo constructor donde se inicializan las variables */
     public LienzoTablero(Color colorDefault) {
         this.colorDefault = colorDefault;
         this.sentido = true;
@@ -56,7 +55,7 @@ public class LienzoTablero extends JPanel {
         int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20, tam = 7;
 
         dibujarTablero(x, y, ancho, alto, tam, g2d);
-        
+
         f1 = new FichaJugador(x, y, ancho, alto, Color.yellow);
 
         if (posCasillas == null) {
@@ -134,10 +133,10 @@ public class LienzoTablero extends JPanel {
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x-ancho/2, y, ancho, alto, Sentido.ABAJO, g);
+                    dibujarTriangulo(x - ancho / 2, y, ancho, alto, Sentido.ABAJO, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x-ancho/2, y, ancho, alto, Sentido.ARRIBA, g);
+                    dibujarTriangulo(x - ancho / 2, y, ancho, alto, Sentido.ARRIBA, g);
                     sentido = true;
                 }
             }
@@ -166,10 +165,10 @@ public class LienzoTablero extends JPanel {
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x, y-alto/2, ancho, alto, Sentido.DERECHA, g);
+                    dibujarTriangulo(x, y - alto / 2, ancho, alto, Sentido.DERECHA, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x, y-alto/2, ancho, alto, Sentido.IZQUIERDA, g);
+                    dibujarTriangulo(x, y - alto / 2, ancho, alto, Sentido.IZQUIERDA, g);
                     sentido = true;
                 }
             }
@@ -198,10 +197,10 @@ public class LienzoTablero extends JPanel {
 
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    dibujarTriangulo(x+ancho/2, y, ancho, alto, Sentido.ABAJO, g);
+                    dibujarTriangulo(x + ancho / 2, y, ancho, alto, Sentido.ABAJO, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x+ancho/2, y, ancho, alto, Sentido.ARRIBA, g);
+                    dibujarTriangulo(x + ancho / 2, y, ancho, alto, Sentido.ARRIBA, g);
                     sentido = true;
                 }
             }
@@ -228,11 +227,11 @@ public class LienzoTablero extends JPanel {
         for (int i = 0; i < cuantos; i++) {
             if (i == cuantos - 2) {
                 if (sentido == true) {
-                    
-                    dibujarTriangulo(x, y+alto/2, ancho, alto, Sentido.DERECHA, g);
+
+                    dibujarTriangulo(x, y + alto / 2, ancho, alto, Sentido.DERECHA, g);
                     sentido = false;
                 } else {
-                    dibujarTriangulo(x, y+alto/2, ancho, alto, Sentido.IZQUIERDA, g);
+                    dibujarTriangulo(x, y + alto / 2, ancho, alto, Sentido.IZQUIERDA, g);
                     sentido = true;
                 }
             }
@@ -297,8 +296,10 @@ public class LienzoTablero extends JPanel {
         g.drawArc(x, y, ancho, alto, startAngle, grade);
         g.setColor(colorDefault);
     }
+
     /**
      * Dibuja un triangulo
+     *
      * @param x Posicion x del cuadro
      * @param y Posicion y del cuadro
      * @param ancho Lo ancho que va ser el cuadro
@@ -310,9 +311,9 @@ public class LienzoTablero extends JPanel {
         Polygon triangulo;
         int x1[];
         int y1[];
-          
+
         g.setColor(Color.BLACK);
-        
+
         switch (sentido) {
             case ABAJO:
                 x1 = new int[]{x, x + ancho / 2, x + ancho};
@@ -329,7 +330,7 @@ public class LienzoTablero extends JPanel {
                 g.drawPolygon(triangulo);
                 break;
             case DERECHA:
-                
+
                 x1 = new int[]{x, x + ancho, x};
                 y1 = new int[]{y, y + alto / 2, y + alto};
                 triangulo = new Polygon(x1, y1, 3);
@@ -337,7 +338,7 @@ public class LienzoTablero extends JPanel {
                 g.drawPolygon(triangulo);
                 break;
             case IZQUIERDA:
-                
+
                 x1 = new int[]{x + ancho, x, x + ancho};
                 y1 = new int[]{y, y + alto / 2, y + alto};
                 triangulo = new Polygon(x1, y1, 3);
@@ -347,8 +348,10 @@ public class LienzoTablero extends JPanel {
         }
         g.setColor(colorDefault);
     }
+
     /**
      * Llama a la ficha actual a moverse
+     *
      * @param pas Cuantos movimientos tendra
      */
     public void llamar(int pas) {
@@ -356,9 +359,10 @@ public class LienzoTablero extends JPanel {
         moverFicha(f1, pas);
         repaint();
     }
-    
+
     /**
      * Hace mover la ficha escojida
+     *
      * @param ficha Cual ficha se movera
      * @param pasos Cunatos movimientos tendra
      */
@@ -398,11 +402,13 @@ public class LienzoTablero extends JPanel {
 
     /**
      * Metodo que escanea el tablero con sus coordenadas para las fichas
-     * @param x Posicion x 
-     * @param y Posicion y 
+     *
+     * @param x Posicion x
+     * @param y Posicion y
      * @param ancho Lo ancho que va ser el cuadro
      * @param alto Lo alto que va ser el cuadro
-     * @return regresa todas coordenadas de cada cuadro respetando como es la trayectoria
+     * @return regresa todas coordenadas de cada cuadro respetando como es la
+     * trayectoria
      */
     public Posicion[] escanearTablero(int x, int y, int ancho, int alto) {
 

@@ -1,22 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package negocio;
 
 /**
  *
- * @author Citlali Orduño
+ * @author Equipo 5
  */
 public class Cania {
 
+    /* Variable a utilizar */
     private boolean[] canias;
 
+    /* Constructor que inicializa la variable */
     public Cania() {
         this.canias = new boolean[5];
     }
 
+    /* Metodo que hace que la cania salga con o sin bola */
     public boolean[] Roll() {
         for (int i = 0; i < canias.length; i++) {
             canias[i] = Math.random() < 0.5;
@@ -24,6 +22,7 @@ public class Cania {
         return this.canias;
     }
 
+    /* Metodo para obtener las canias */
     public int getCaniasInt() {
         int num = 0;
         for (boolean cania : canias) {
@@ -34,5 +33,4 @@ public class Cania {
         }
         return num;
     }
-
 }
