@@ -2,6 +2,7 @@ package dibujo;
 
 /* Librearias a utilizar */
 import java.awt.Color;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import negocio.Cania;
 
@@ -12,16 +13,21 @@ import negocio.Cania;
 public class Bastidor extends javax.swing.JFrame {
 
    /* Se crean objetos de la clase LienzoTablero */
-    LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY);
-    LienzoCanias lienzoCanias = new LienzoCanias();
-
+    private LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY,7);
+    private LienzoCanias lienzoCanias = new LienzoCanias();
+    private LienzoFichas lienzoFichas=new LienzoFichas();
+    private JLayeredPane capas=new JLayeredPane();
     /* Metodo que añade los lienzos */
     public Bastidor() {
         initComponents();
-        lienzoTablero.setBounds(10, 10, 400, 400);
+        capas.setBounds(10, 10, 400, 400);
+        lienzoTablero.setBounds(0, 0, 400, 400);
+        lienzoFichas.setBounds(0, 0, 400, 400);
         lienzoCanias.setBounds(10, 420, 400, 100);
-        this.add(lienzoTablero);
+        capas.add(lienzoTablero,1);
+        capas.add(lienzoFichas,2);
         this.add(lienzoCanias);
+        this.getContentPane().add(capas);
         this.setLocationRelativeTo(null);
     }
 
@@ -393,7 +399,7 @@ public class Bastidor extends javax.swing.JFrame {
     boolean[] canias= ca.Roll();
     lienzoCanias.setCanias(canias);
     lienzoCanias.LanzarCanias();
-    lienzoTablero.llamar(ca.getCaniasInt());
+    lienzoFichas.llamar(ca.getCaniasInt());
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
 
     /* Metodo para que el boton salir le pregunte al usuario si esta seguro

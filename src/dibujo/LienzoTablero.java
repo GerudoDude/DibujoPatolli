@@ -21,15 +21,14 @@ public class LienzoTablero extends JPanel {
     /* Variables a utilizar */
     private Color colorDefault;
     private static boolean sentido;
+    public static int tamanio;
     private Graphics2D g2d;
-    private ArrayList listaFichas = new ArrayList();
-    private Posicion[] posCasillas;
-    private static int pasos = 0;
-    FichaJugador f1;
+    
 
     /* Metodo constructor donde se inicializan las variables */
-    public LienzoTablero(Color colorDefault) {
+    public LienzoTablero(Color colorDefault,int tamanio) {
         this.colorDefault = colorDefault;
+        this.tamanio=tamanio;
         this.sentido = true;
     }
 
@@ -37,7 +36,7 @@ public class LienzoTablero extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        this.setOpaque(false);
         g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.BLACK);
@@ -56,14 +55,7 @@ public class LienzoTablero extends JPanel {
 
         dibujarTablero(x, y, ancho, alto, tam, g2d);
 
-        f1 = new FichaJugador(x, y, ancho, alto, Color.yellow);
-
-        if (posCasillas == null) {
-            this.posCasillas = escanearTablero(x, y, ancho, alto);
-        }
-
-        moverFicha(f1, pasos); //enves de f1, una lista de fichas
-
+        
     }
 
     /**
@@ -349,149 +341,5 @@ public class LienzoTablero extends JPanel {
         g.setColor(colorDefault);
     }
 
-    /**
-     * Llama a la ficha actual a moverse
-     *
-     * @param pas Cuantos movimientos tendra
-     */
-    public void llamar(int pas) {
-        this.pasos += pas;
-        moverFicha(f1, pas);
-        repaint();
-    }
-
-    /**
-     * Hace mover la ficha escojida
-     *
-     * @param ficha Cual ficha se movera
-     * @param pasos Cunatos movimientos tendra
-     */
-    public void moverFicha(FichaJugador ficha, int pasos) {
-
-        g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
-
-        if (this.pasos > 60) {
-            this.pasos = 0;
-        }
-
-        int x1 = posCasillas[pasos].getPosicionX();
-        int y1 = posCasillas[pasos].getPosicionY();
-        ficha.setX(x1);
-        ficha.setY(y1);
-        dibujarficha(ficha, g2d);
-        pasos += pasos;
-
-    }
-
-    /**
-     * Dibuja la ficha
-     *
-     * @param ficha
-     * @param g2d Componente(JFrame) grafico actual
-     */
-    public void dibujarficha(FichaJugador ficha, Graphics2D g2d) {
-        g2d.setStroke(new BasicStroke(1));
-        g2d.setColor(ficha.getColor());
-
-        g2d.fill(ficha.getFigura());
-        g2d.setColor(Color.BLACK);
-
-        g2d.draw(ficha.getFigura());
-
-    }
-
-    /**
-     * Metodo que escanea el tablero con sus coordenadas para las fichas
-     *
-     * @param x Posicion x
-     * @param y Posicion y
-     * @param ancho Lo ancho que va ser el cuadro
-     * @param alto Lo alto que va ser el cuadro
-     * @return regresa todas coordenadas de cada cuadro respetando como es la
-     * trayectoria
-     */
-    public Posicion[] escanearTablero(int x, int y, int ancho, int alto) {
-
-        posCasillas = new Posicion[60];
-        int i = 0;
-        // Astilla izquierda-Arriba
-        while (i < 8) {
-            posCasillas[i] = new Posicion(x, y);
-            x -= ancho;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        y += alto;
-        x += ancho;
-        //Astilla Izquierda-Abajo
-        while (i < 16) {
-            posCasillas[i] = new Posicion(x, y);
-            x += ancho;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        y += alto;
-        x -= ancho;
-        //Astilla Abajo-Izquierda
-        while (i < 23) {
-            posCasillas[i] = new Posicion(x, y);
-            y += alto;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        //Astilla Abajo-Derecha
-        x += ancho;
-        y -= alto;
-        while (i < 31) {
-            posCasillas[i] = new Posicion(x, y);
-            y -= alto;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        //Astilla Derecha-Abajo
-        x += ancho;
-        y += alto;
-        while (i < 38) {
-            posCasillas[i] = new Posicion(x, y);
-            x += ancho;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        //Astilla Derecha-Arriba
-        y -= alto;
-        x -= ancho;
-        while (i < 46) {
-            posCasillas[i] = new Posicion(x, y);
-            x -= ancho;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        //Astilla Arriba-Derecha
-        y -= alto;
-        x += ancho;
-        while (i < 53) {
-            posCasillas[i] = new Posicion(x, y);
-            y -= alto;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        //Astilla Arriba-Izquierda
-        y += alto;
-        x -= ancho;
-        while (i < 60) {
-            posCasillas[i] = new Posicion(x, y);
-            y += alto;
-            System.out.println("Casilla " + i + " X: " + posCasillas[i].getPosicionX() + " Y:" + posCasillas[i].getPosicionY());
-
-            i++;
-        }
-        return posCasillas;
-    }
+   
 }
