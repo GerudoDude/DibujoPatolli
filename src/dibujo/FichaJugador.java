@@ -16,7 +16,19 @@ public class FichaJugador {
     private int ancho;
     private int alto;
     private Color color;
+    private int pasos;
 
+    
+    public FichaJugador(Color color) {
+        this.x = 0;
+        this.y = 0;
+        this.ancho = 0;
+        this.alto = 0;
+        this.color = color;
+        this.pasos=0;
+    }
+    
+    
     /* Metodo constructor donde inicializa las variables */
     public FichaJugador(int x, int y, int ancho, int alto, Color color) {
         this.x = x;
@@ -24,8 +36,17 @@ public class FichaJugador {
         this.ancho = ancho;
         this.alto = alto;
         this.color = color;
+        this.pasos=0;
     }
-
+    
+    public void nuevasDimensiones(int x, int y, int ancho, int alto){
+        this.x = x;
+        this.y = y;
+        this.ancho = ancho;
+        this.alto = alto;
+        this.color = color;
+    }
+    
     /* Get y Sets de las variables */
     public int getX() {
         return x;
@@ -67,6 +88,14 @@ public class FichaJugador {
         this.color = color;
     }
 
+    public int getPasos() {
+        return this.pasos;
+    }
+
+    public void setPasos(int pasos) {
+        this.pasos = pasos;
+    }
+    
     /* Metodo para obtener la figura de la ficha de cada jugador
        en el tablero */
     public Ellipse2D getFigura() {

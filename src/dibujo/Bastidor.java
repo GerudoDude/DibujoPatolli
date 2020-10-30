@@ -12,12 +12,14 @@ import negocio.Cania;
  */
 public class Bastidor extends javax.swing.JFrame {
 
-   /* Se crean objetos de la clase LienzoTablero */
-    private LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY,7);
+    /* Se crean objetos de la clase LienzoTablero */
+    private LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY, 7);
     private LienzoCanias lienzoCanias = new LienzoCanias();
-    private LienzoFichas lienzoFichas=new LienzoFichas();
-    private JLayeredPane capas=new JLayeredPane();
-    /* Metodo que añade los lienzos */
+    private LienzoFichas lienzoFichas = new LienzoFichas();
+    private JLayeredPane capas = new JLayeredPane();
+    // Fichas test
+    FichaJugador fj = new FichaJugador(Color.RED);
+    FichaJugador fj2 = new FichaJugador(Color.BLUE);
     public Bastidor() {
         initComponents();
         capas.setBounds(10, 10, 400, 400);
@@ -395,6 +397,16 @@ public class Bastidor extends javax.swing.JFrame {
     /* Metodo para que el boton haga la accion de lanzar canias, moviendo
        la ficha segun indique las canias */
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
+     // Fichas test
+        if(lienzoFichas.fActual==fj){
+            lienzoFichas.FichaActual(fj2);
+        }else{
+            lienzoFichas.FichaActual(fj);
+        }
+        if(lienzoFichas.fActual==null){
+            lienzoFichas.FichaActual(fj2);
+        }
+        
     Cania ca=new Cania();
     boolean[] canias= ca.Roll();
     lienzoCanias.setCanias(canias);

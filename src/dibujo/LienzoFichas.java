@@ -18,11 +18,10 @@ import javax.swing.JPanel;
  * @author Equipo 5
  */
 public class LienzoFichas extends JPanel {
-    private ArrayList listaFichas = new ArrayList();
+    private ArrayList<FichaJugador> listaFichas = new ArrayList<FichaJugador>();
     private Posicion[] posCasillas;
-    private static int pasos = 0;
     private Graphics2D g2d;
-    FichaJugador f1;
+    public FichaJugador fActual=null;
 
     public LienzoFichas() {
     }
@@ -38,18 +37,35 @@ public class LienzoFichas extends JPanel {
         g2d.draw(rect);
         g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
         int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20;
-        f1 = new FichaJugador(x, y, ancho, alto, Color.yellow);
-
+        
         if (posCasillas == null) {
             this.posCasillas = escanearTablero(x, y, ancho, alto);
         }
-
-        moverFicha(f1, pasos); //enves de f1, una lista de fichas
+        
+        if(fActual!=null){
+        this.fActual.nuevasDimensiones(x, y, ancho, alto);
+        moverFicha(this.fActual, this.fActual.getPasos());    
+        }
+             
+        FichasPosicion();
+        
     
     
     
     }
     
+    public void FichasPosicion(){
+        listaFichas.forEach((listaFicha) -> {
+            dibujarficha(listaFicha, g2d);
+        });
+    }
+    
+    public void FichaActual(FichaJugador fichaj){
+        this.fActual=fichaj;
+        if(!listaFichas.contains(fichaj)){
+            listaFichas.add(fichaj);
+        }
+    }
     
      /**
      * Llama a la ficha actual a moverse
@@ -57,11 +73,10 @@ public class LienzoFichas extends JPanel {
      * @param pas Cuantos movimientos tendra
      */
     public void llamar(int pas) {
-        this.pasos += pas;
-        moverFicha(f1, pas);
-        repaint();
+        this.fActual.setPasos(this.fActual.getPasos()+pas);
+        moverFicha(this.fActual, pas);
+        
     }
-
     /**
      * Hace mover la ficha escojida
      *
@@ -70,10 +85,10 @@ public class LienzoFichas extends JPanel {
      */
     public void moverFicha(FichaJugador ficha, int pasos) {
 
-        g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
+       g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
 
-        if (this.pasos > 60) {
-            this.pasos = 0;
+        if (ficha.getPasos() > 60) {
+            ficha.setPasos(0);
         }
 
         int x1 = posCasillas[pasos].getPosicionX();
@@ -81,8 +96,7 @@ public class LienzoFichas extends JPanel {
         ficha.setX(x1);
         ficha.setY(y1);
         dibujarficha(ficha, g2d);
-        pasos += pasos;
-
+        repaint();
     }
 
     /**
