@@ -18,65 +18,63 @@ import javax.swing.JPanel;
  * @author Equipo 5
  */
 public class LienzoFichas extends JPanel {
+
     private ArrayList<FichaJugador> listaFichas = new ArrayList<FichaJugador>();
     private Posicion[] posCasillas;
     private Graphics2D g2d;
-    public FichaJugador fActual=null;
+    public FichaJugador fActual = null;
 
     public LienzoFichas() {
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); 
+        super.paintComponent(g);
         this.setOpaque(false);
         g2d = (Graphics2D) g;
         Rectangle rect = new Rectangle();
         rect.setBounds(0, 0, this.getWidth() - 1, this.getHeight() - 1);
-        
+
         g2d.draw(rect);
         g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
         int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20;
-        
+
         if (posCasillas == null) {
             this.posCasillas = escanearTablero(x, y, ancho, alto);
         }
-        
-        if(fActual!=null){
-        this.fActual.nuevasDimensiones(x, y, ancho, alto);
-        moverFicha(this.fActual, this.fActual.getPasos());    
+
+        if (fActual != null) {
+            this.fActual.nuevasDimensiones(x, y, ancho, alto);
+            moverFicha(this.fActual, this.fActual.getPasos());
         }
-             
-        FichasPosicion();
-        
-    
-    
-    
+
+        fichasPosicion();
+
     }
-    
-    public void FichasPosicion(){
+
+    private void fichasPosicion() {
         listaFichas.forEach((listaFicha) -> {
             dibujarficha(listaFicha, g2d);
         });
     }
-    
-    public void FichaActual(FichaJugador fichaj){
-        this.fActual=fichaj;
-        if(!listaFichas.contains(fichaj)){
+
+    public void fichaActual(FichaJugador fichaj) {
+        this.fActual = fichaj;
+        if (!listaFichas.contains(fichaj)) {
             listaFichas.add(fichaj);
         }
     }
-    
-     /**
+
+    /**
      * Llama a la ficha actual a moverse
      *
      * @param pas Cuantos movimientos tendra
      */
-    public void llamar(int pas) {
-        this.fActual.setPasos(this.fActual.getPasos()+pas);
-        moverFicha(this.fActual, pas);
-        
-    }
+//    public void llamar(int pas) {
+//        this.fActual.setPasos(this.fActual.getPasos()+pas);
+//        moverFicha(this.fActual, pas);
+//        
+//    }
     /**
      * Hace mover la ficha escojida
      *
@@ -85,7 +83,7 @@ public class LienzoFichas extends JPanel {
      */
     public void moverFicha(FichaJugador ficha, int pasos) {
 
-       g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
+        g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
 
         if (ficha.getPasos() > 60) {
             ficha.setPasos(0);
@@ -127,11 +125,12 @@ public class LienzoFichas extends JPanel {
      * trayectoria
      */
     public Posicion[] escanearTablero(int x, int y, int ancho, int alto) {
-        int cant=LienzoTablero.tamanio+1;
-        posCasillas = new Posicion[(cant*9)-3];
+        int cant = LienzoTablero.tamanio + 1;
+        posCasillas = new Posicion[(cant * 9) - 3];
         int i = 0;
         // Astilla izquierda-Arriba
-        while (i < cant) { /*8*/
+        while (i < cant) {
+            /*8*/
             posCasillas[i] = new Posicion(x, y);
             x -= ancho;
 
@@ -140,7 +139,8 @@ public class LienzoFichas extends JPanel {
         y += alto;
         x += ancho;
         //Astilla Izquierda-Abajo
-        while (i < cant*2) { /*16*/
+        while (i < cant * 2) {
+            /*16*/
             posCasillas[i] = new Posicion(x, y);
             x += ancho;
 
@@ -149,7 +149,8 @@ public class LienzoFichas extends JPanel {
         y += alto;
         x -= ancho;
         //Astilla Abajo-Izquierda
-        while (i < (cant*3)-1) { /*23*/
+        while (i < (cant * 3) - 1) {
+            /*23*/
             posCasillas[i] = new Posicion(x, y);
             y += alto;
 
@@ -158,7 +159,8 @@ public class LienzoFichas extends JPanel {
         //Astilla Abajo-Derecha
         x += ancho;
         y -= alto;
-        while (i < (cant*4)-1) { /*31*/
+        while (i < (cant * 4) - 1) {
+            /*31*/
             posCasillas[i] = new Posicion(x, y);
             y -= alto;
 
@@ -167,7 +169,8 @@ public class LienzoFichas extends JPanel {
         //Astilla Derecha-Abajo
         x += ancho;
         y += alto;
-        while (i < (cant*5)-2) { /*38*/
+        while (i < (cant * 5) - 2) {
+            /*38*/
             posCasillas[i] = new Posicion(x, y);
             x += ancho;
 
@@ -176,7 +179,8 @@ public class LienzoFichas extends JPanel {
         //Astilla Derecha-Arriba
         y -= alto;
         x -= ancho;
-        while (i < (cant*6)-2) { /*46*/
+        while (i < (cant * 6) - 2) {
+            /*46*/
             posCasillas[i] = new Posicion(x, y);
             x -= ancho;
 
@@ -185,7 +189,8 @@ public class LienzoFichas extends JPanel {
         //Astilla Arriba-Derecha
         y -= alto;
         x += ancho;
-        while (i < (cant*7)-3) { /*53*/
+        while (i < (cant * 7) - 3) {
+            /*53*/
             posCasillas[i] = new Posicion(x, y);
             y -= alto;
 
@@ -194,7 +199,8 @@ public class LienzoFichas extends JPanel {
         //Astilla Arriba-Izquierda
         y += alto;
         x -= ancho;
-        while (i < (cant*8)-4) { /*60*/
+        while (i < (cant * 8) - 4) {
+            /*60*/
             posCasillas[i] = new Posicion(x, y);
             y += alto;
 
@@ -202,5 +208,5 @@ public class LienzoFichas extends JPanel {
         }
         return posCasillas;
     }
-    
+
 }

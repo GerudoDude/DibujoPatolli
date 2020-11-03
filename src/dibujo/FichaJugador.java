@@ -17,7 +17,7 @@ public class FichaJugador {
     private int alto;
     private Color color;
     private int pasos;
-
+    
     
     public FichaJugador(Color color) {
         this.x = 0;

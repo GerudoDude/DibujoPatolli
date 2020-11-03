@@ -399,12 +399,12 @@ public class Bastidor extends javax.swing.JFrame {
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
      // Fichas test
         if(lienzoFichas.fActual==fj){
-            lienzoFichas.FichaActual(fj2);
+            lienzoFichas.fichaActual(fj2);
         }else{
-            lienzoFichas.FichaActual(fj);
+            lienzoFichas.fichaActual(fj);
         }
         if(lienzoFichas.fActual==null){
-            lienzoFichas.FichaActual(fj2);
+            lienzoFichas.fichaActual(fj2);
         }
         
     Cania ca=new Cania();

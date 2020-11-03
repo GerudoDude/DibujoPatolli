@@ -2,7 +2,6 @@ package negocio;
 
 /* Librerias a utilizar */
 import dibujo.FichaJugador;
-import java.awt.Color;
 
 /**
  *

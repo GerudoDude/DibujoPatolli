@@ -10,6 +10,8 @@ public class Tablero {
     private Casilla[] casillas;
     
     /* Metodo para posicionar los jugadores */
-    public void PosicionarJugadores(Jugador[] jugadores){ 
+    public void PosicionarJugadores(Jugador[] jugadores){
     }
+    
+    
 }
