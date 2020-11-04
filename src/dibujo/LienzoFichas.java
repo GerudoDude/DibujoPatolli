@@ -70,7 +70,7 @@ public class LienzoFichas extends JPanel {
      *
      * @param pas Cuantos movimientos tendra
      */
-    public void Lanzar(int pas) {
+    public void lanzar(int pas) {
         this.fActual.setPasos(this.fActual.getPasos()+pas);
         moverFicha(this.fActual, pas);
         

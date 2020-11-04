@@ -411,7 +411,7 @@ public class Bastidor extends javax.swing.JFrame {
     boolean[] canias= ca.Roll();
     lienzoCanias.setCanias(canias);
     lienzoCanias.LanzarCanias();
-    lienzoFichas.Lanzar(ca.getCaniasInt());
+    lienzoFichas.lanzar(ca.getCaniasInt());
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
 
     /* Metodo para que el boton salir le pregunte al usuario si esta seguro

@@ -51,7 +51,7 @@ public class LienzoCanias extends JPanel {
     public void LanzarCanias() {
         if (canias != null) {
             int x = 0, y = 0, ancho = 20, alto = 20;
-            DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
+            dibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
             repaint();
         }
     }
@@ -60,13 +60,13 @@ public class LienzoCanias extends JPanel {
     public void LanzarCanias(boolean[] canias) {
         if (canias != null) {
             int x = 0, y = 0, ancho = 20, alto = 20;
-            DibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
+            dibujarLanzarcanias(canias, x, y, ancho, alto, g2d);
             repaint();
         }
     }
 
     /* Metodo que dibuja cuando se lanzan las canias */
-    public void DibujarLanzarcanias(boolean[] canias, int x, int y, int ancho, int alto, Graphics2D g) {
+    public void dibujarLanzarcanias(boolean[] canias, int x, int y, int ancho, int alto, Graphics2D g) {
         for (int i = 0; i < 5; i++) {
             if (canias[i] == true) {
                 dibujarCaniaLisa(x + ancho * 3, y + alto, ancho * 2, alto * 3, g);
