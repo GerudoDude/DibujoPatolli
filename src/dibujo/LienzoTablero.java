@@ -9,8 +9,13 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 import javax.swing.JPanel;
+import dominio.Casilla;
+import dominio.Central;
+import dominio.Normal;
+import dominio.Semicurva;
+import dominio.Tablero;
+import dominio.Triangulo;
 
 /**
  *
@@ -21,14 +26,14 @@ public class LienzoTablero extends JPanel {
     /* Variables a utilizar */
     private Color colorDefault;
     private static boolean sentido;
-    public static int tamanio;
     private Graphics2D g2d;
-    
+    public static Tablero tablero;
 
     /* Metodo constructor donde se inicializan las variables */
-    public LienzoTablero(Color colorDefault,int tamanio) {
-        this.colorDefault = colorDefault;
-        this.tamanio=tamanio;
+    public LienzoTablero(Tablero tablero) {
+        this.tablero = tablero;
+        this.colorDefault = Color.BLACK;
+
         this.sentido = true;
     }
 
@@ -51,11 +56,11 @@ public class LienzoTablero extends JPanel {
         g2d.setStroke(new BasicStroke(2));
 
         //Configuracion
-        int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20, tam = 7;
+        int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20;
 
-        dibujarTablero(x, y, ancho, alto, tam, g2d);
+        escanearTablero(x, y, ancho, alto);
+        dibujarTablero(x, y, ancho, alto, this.tablero.getTamanio(), g2d);
 
-        
     }
 
     /**
@@ -185,6 +190,7 @@ public class LienzoTablero extends JPanel {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarIzquierda(int x, int y, int ancho, int alto, int cuantos, Graphics2D g) {
+
         for (int i = 0; i < cuantos; i++) {
 
             if (i == cuantos - 2) {
@@ -266,25 +272,25 @@ public class LienzoTablero extends JPanel {
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadro(int x, int y, int ancho, int alto, Graphics2D g) {
-
         Rectangle rect = new Rectangle();
         rect.setBounds(x, y, ancho, alto);
         g.draw(rect);
     }
 
+    public void dibujarUnCuadroCentro(int x, int y, int ancho, int alto, Graphics2D g) {
+        g.setColor(Color.yellow);
+        Rectangle rect = new Rectangle();
+        rect.setBounds(x, y, ancho, alto);
+        g.draw(rect);
+        g.setColor(colorDefault);
+    }
+
     /**
      * Dibuja un cuadro curvado
      *
-     * @param x Posicion x del cuadro
-     * @param y Posicion y del cuadro
-     * @param ancho Lo ancho que va ser el cuadro
-     * @param alto Lo alto que va ser el cuadro
-     * @param startAngle Angulo inicial del arco
-     * @param grade Los grados del arco que se dibujaran
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarUnCuadroCurva(int x, int y, int ancho, int alto, int startAngle, int grade, Graphics2D g) {
-
         g.drawArc(x, y, ancho, alto, startAngle, grade);
         g.setColor(colorDefault);
     }
@@ -292,11 +298,7 @@ public class LienzoTablero extends JPanel {
     /**
      * Dibuja un triangulo
      *
-     * @param x Posicion x del cuadro
-     * @param y Posicion y del cuadro
-     * @param ancho Lo ancho que va ser el cuadro
-     * @param alto Lo alto que va ser el cuadro
-     * @param sentido Donde apuntar el triangulo
+     * @param fTriangulo
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarTriangulo(int x, int y, int ancho, int alto, Sentido sentido, Graphics2D g) {
@@ -341,5 +343,191 @@ public class LienzoTablero extends JPanel {
         g.setColor(colorDefault);
     }
 
-   
+    public void escanearTablero(int x, int y, int ancho, int alto) {
+        Casilla casilla[] = this.tablero.getCasillas();
+        int cant = this.tablero.getTamanio() + 1;
+        int iCant = 0;
+
+        int i = 0;
+        // Astilla izquierda-Arriba
+        iCant = cant;
+        while (i < iCant) {
+            /*8*/
+
+            if (i == 0) {
+                casilla[i] = new Central();
+            }
+
+            if (i >= 1 && i < iCant - 3) {
+                casilla[i] = new Normal();
+            }
+
+            if (i == iCant - 2 || i == iCant - 3) {
+                casilla[i] = new Triangulo();
+            }
+
+            if (i == iCant - 1) {
+                casilla[i] = new Semicurva();
+            }
+
+            casilla[i].setPos(new Posicion(x, y));
+            x -= ancho;
+
+            i++;
+        }
+        y += alto;
+        x += ancho;
+        iCant = cant * 2;
+        //Astilla Izquierda-Abajo
+        while (i < iCant) {
+            /*16*/
+
+            if (i == cant) {
+                casilla[i] = new Semicurva();
+            }
+            if (i > cant && i <= cant + 2) {
+                casilla[i] = new Triangulo();
+            }
+            if (i > cant + 2 && i < iCant - 1) {
+                casilla[i] = new Normal();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Central();
+            }
+
+            casilla[i].setPos(new Posicion(x, y));
+
+            x += ancho;
+
+            i++;
+        }
+        y += alto;
+        x -= ancho;
+        iCant = (cant * 3) - 1;
+        //Astilla Abajo-Izquierda
+        while (i < iCant) {
+            /*23*/
+            if (i < iCant - 3) {
+                casilla[i] = new Normal();
+            }
+            if (i > iCant - 4 && i < iCant - 1) {
+                casilla[i] = new Triangulo();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Semicurva();
+            }
+            casilla[i].setPos(new Posicion(x, y));
+            y += alto;
+
+            i++;
+        }
+        //Astilla Abajo-Derecha
+        x += ancho;
+        y -= alto;
+        iCant = (cant * 4) - 1;
+        while (i < iCant) {
+            /*31*/
+            if (i == (cant * 3) - 1) {
+                casilla[i] = new Semicurva();
+            }
+            if (i > (cant * 3) - 1 && i < (cant * 3) + 2) {
+                casilla[i] = new Triangulo();
+            }
+            if (i > (cant * 3) + 1 && i < iCant - 1) {
+                casilla[i] = new Normal();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Central();
+            }
+            casilla[i].setPos(new Posicion(x, y));
+            y -= alto;
+            i++;
+        }
+        //Astilla Derecha-Abajo
+        x += ancho;
+        y += alto;
+        iCant = (cant * 5) - 2;
+        while (i < iCant) {
+            /*38*/
+            if (i < iCant - 3) {
+                casilla[i] = new Normal();
+            }
+            if (i > iCant - 4 && i < iCant - 1) {
+                casilla[i] = new Triangulo();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Semicurva();
+            }
+            casilla[i].setPos(new Posicion(x, y));
+            x += ancho;
+
+            i++;
+        }
+        //Astilla Derecha-Arriba
+        y -= alto;
+        x -= ancho;
+        iCant = (cant * 6) - 2;
+        while (i < iCant) {
+            /*46*/
+            if (i == (cant * 5) - 2) {
+                casilla[i] = new Semicurva();
+            }
+            if (i > (cant * 5) - 2 && i <= (cant * 5)) {
+                casilla[i] = new Triangulo();
+            }
+            if (i > (cant * 5) && i < iCant - 1) {
+                casilla[i] = new Normal();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Central();
+            }
+            casilla[i].setPos(new Posicion(x, y));
+            x -= ancho;
+            i++;
+        }
+        //Astilla Arriba-Derecha
+        y -= alto;
+        x += ancho;
+        iCant = (cant * 7) - 3;
+        while (i < iCant) {
+            /*53*/
+            if (i < iCant - 3) {
+                casilla[i] = new Normal();
+            }
+            if (i > iCant - 4 && i < iCant - 1) {
+                casilla[i] = new Triangulo();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Semicurva();
+            }
+            casilla[i].setPos(new Posicion(x, y));
+            y -= alto;
+
+            i++;
+        }
+        //Astilla Arriba-Izquierda
+        y += alto;
+        x -= ancho;
+        iCant = (cant * 8) - 4;
+        while (i < iCant) {
+            /*60*/
+            if (i == (cant * 7) - 3) {
+                casilla[i] = new Semicurva();
+            }
+            if (i > (cant * 7) - 3 && i <= (cant * 7) - 1) {
+                casilla[i] = new Triangulo();
+            }
+            if (i > (cant * 7) - 1 && i < iCant) {
+                casilla[i] = new Normal();
+            }
+            if (i == iCant - 1) {
+                casilla[i] = new Central();
+            }
+            casilla[i].setPos(new Posicion(x, y));
+            y += alto;
+            i++;
+        }
+        this.tablero.setCasillas(casilla);
+    }
+
 }

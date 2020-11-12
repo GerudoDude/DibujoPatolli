@@ -4,7 +4,8 @@ package dibujo;
 import java.awt.Color;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import negocio.Cania;
+import dominio.Cania;
+import dominio.Tablero;
 
 /**
  *
@@ -13,21 +14,23 @@ import negocio.Cania;
 public class Bastidor extends javax.swing.JFrame {
 
     /* Se crean objetos de la clase LienzoTablero */
-    private LienzoTablero lienzoTablero = new LienzoTablero(Color.DARK_GRAY, 7);
+    public Tablero tablero = new Tablero(7);
+    private LienzoTablero lienzoTablero = new LienzoTablero(tablero);
     private LienzoCanias lienzoCanias = new LienzoCanias();
-    private LienzoFichas lienzoFichas = new LienzoFichas();
+    private LienzoFichas lienzoFichas = new LienzoFichas(tablero);
     private JLayeredPane capas = new JLayeredPane();
     // Fichas test
     FichaJugador fj = new FichaJugador(Color.RED);
     FichaJugador fj2 = new FichaJugador(Color.BLUE);
+
     public Bastidor() {
         initComponents();
         capas.setBounds(10, 10, 400, 400);
         lienzoTablero.setBounds(0, 0, 400, 400);
         lienzoFichas.setBounds(0, 0, 400, 400);
         lienzoCanias.setBounds(10, 420, 400, 100);
-        capas.add(lienzoTablero,1);
-        capas.add(lienzoFichas,2);
+        capas.add(lienzoTablero, 1);
+        capas.add(lienzoFichas, 2);
         this.add(lienzoCanias);
         this.getContentPane().add(capas);
         this.setLocationRelativeTo(null);
@@ -397,35 +400,35 @@ public class Bastidor extends javax.swing.JFrame {
     /* Metodo para que el boton haga la accion de lanzar canias, moviendo
        la ficha segun indique las canias */
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
-     // Fichas test
-        if(lienzoFichas.fActual==fj){
+        // Fichas test
+        if (lienzoFichas.fActual == fj) {
             lienzoFichas.fichaActual(fj2);
-        }else{
+        } else {
             lienzoFichas.fichaActual(fj);
         }
-        if(lienzoFichas.fActual==null){
+        if (lienzoFichas.fActual == null) {
             lienzoFichas.fichaActual(fj2);
         }
-        
-    Cania ca=new Cania();
-    boolean[] canias= ca.Roll();
-    lienzoCanias.setCanias(canias);
-    lienzoCanias.LanzarCanias();
-    lienzoFichas.lanzar(ca.getCaniasInt());
+
+        Cania ca = new Cania();
+        boolean[] canias = ca.Roll();
+        lienzoCanias.setCanias(canias);
+        lienzoCanias.LanzarCanias();
+        lienzoFichas.lanzar(ca.getCaniasInt());
     }//GEN-LAST:event_btnLanzarCaniaActionPerformed
 
     /* Metodo para que el boton salir le pregunte al usuario si esta seguro
        de querer salir, en caso de que si finaliza el programa, sino solamente 
        cierra el mensaje y sigue en el juego */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-      try {
+        try {
             int respuesta = JOptionPane.showConfirmDialog(null, "¿Esta  seguro que desea salir del juego?", null,
                     JOptionPane.YES_NO_OPTION);
             if (respuesta == 0) {
-                System.exit(0);  
+                System.exit(0);
                 this.dispose();
             }
-          }catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnSalirActionPerformed

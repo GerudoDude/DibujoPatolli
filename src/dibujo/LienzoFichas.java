@@ -12,6 +12,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import dominio.Casilla;
+import dominio.Tablero;
 
 /**
  *
@@ -21,10 +23,12 @@ public class LienzoFichas extends JPanel {
 
     private ArrayList<FichaJugador> listaFichas = new ArrayList<FichaJugador>();
     private Posicion[] posCasillas;
+    private Tablero tablero;
     private Graphics2D g2d;
     public FichaJugador fActual = null;
 
-    public LienzoFichas() {
+    public LienzoFichas(Tablero tablero) {
+        this.tablero = tablero;
     }
 
     @Override
@@ -38,10 +42,6 @@ public class LienzoFichas extends JPanel {
         g2d.draw(rect);
         g2d.rotate(Math.toRadians(45), rect.getCenterX(), rect.getCenterY());
         int x = (int) rect.getCenterX() - 22, y = (int) rect.getCenterY() - 22, ancho = 20, alto = 20;
-
-        if (posCasillas == null) {
-            this.posCasillas = escanearTablero(x, y, ancho, alto);
-        }
 
         if (fActual != null) {
             this.fActual.nuevasDimensiones(x, y, ancho, alto);
@@ -71,10 +71,11 @@ public class LienzoFichas extends JPanel {
      * @param pas Cuantos movimientos tendra
      */
     public void lanzar(int pas) {
-        this.fActual.setPasos(this.fActual.getPasos()+pas);
+        this.fActual.setPasos(this.fActual.getPasos() + pas);
         moverFicha(this.fActual, pas);
-        
+
     }
+
     /**
      * Hace mover la ficha escojida
      *
@@ -82,15 +83,15 @@ public class LienzoFichas extends JPanel {
      * @param pasos Cunatos movimientos tendra
      */
     public void moverFicha(FichaJugador ficha, int pasos) {
-
-        g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
+        Casilla casillas[] = this.tablero.getCasillas();
+        this.g2d.clearRect(ficha.getX(), ficha.getY(), ficha.getAncho(), ficha.getAlto());
 
         if (ficha.getPasos() > 60) {
             ficha.setPasos(0);
         }
-
-        int x1 = posCasillas[pasos].getPosicionX();
-        int y1 = posCasillas[pasos].getPosicionY();
+        casillas[pasos].setFichaActual(this.fActual);
+        int x1 = casillas[pasos].getPos().getPosicionX();
+        int y1 = casillas[pasos].getPos().getPosicionY();
         ficha.setX(x1);
         ficha.setY(y1);
         dibujarficha(ficha, g2d);
@@ -124,89 +125,4 @@ public class LienzoFichas extends JPanel {
      * @return regresa todas coordenadas de cada cuadro respetando como es la
      * trayectoria
      */
-    public Posicion[] escanearTablero(int x, int y, int ancho, int alto) {
-        int cant = LienzoTablero.tamanio + 1;
-        posCasillas = new Posicion[(cant * 9) - 3];
-        int i = 0;
-        // Astilla izquierda-Arriba
-        while (i < cant) {
-            /*8*/
-            posCasillas[i] = new Posicion(x, y);
-            x -= ancho;
-
-            i++;
-        }
-        y += alto;
-        x += ancho;
-        //Astilla Izquierda-Abajo
-        while (i < cant * 2) {
-            /*16*/
-            posCasillas[i] = new Posicion(x, y);
-            x += ancho;
-
-            i++;
-        }
-        y += alto;
-        x -= ancho;
-        //Astilla Abajo-Izquierda
-        while (i < (cant * 3) - 1) {
-            /*23*/
-            posCasillas[i] = new Posicion(x, y);
-            y += alto;
-
-            i++;
-        }
-        //Astilla Abajo-Derecha
-        x += ancho;
-        y -= alto;
-        while (i < (cant * 4) - 1) {
-            /*31*/
-            posCasillas[i] = new Posicion(x, y);
-            y -= alto;
-
-            i++;
-        }
-        //Astilla Derecha-Abajo
-        x += ancho;
-        y += alto;
-        while (i < (cant * 5) - 2) {
-            /*38*/
-            posCasillas[i] = new Posicion(x, y);
-            x += ancho;
-
-            i++;
-        }
-        //Astilla Derecha-Arriba
-        y -= alto;
-        x -= ancho;
-        while (i < (cant * 6) - 2) {
-            /*46*/
-            posCasillas[i] = new Posicion(x, y);
-            x -= ancho;
-
-            i++;
-        }
-        //Astilla Arriba-Derecha
-        y -= alto;
-        x += ancho;
-        while (i < (cant * 7) - 3) {
-            /*53*/
-            posCasillas[i] = new Posicion(x, y);
-            y -= alto;
-
-            i++;
-        }
-        //Astilla Arriba-Izquierda
-        y += alto;
-        x -= ancho;
-        while (i < (cant * 8) - 4) {
-            /*60*/
-            posCasillas[i] = new Posicion(x, y);
-            y += alto;
-
-            i++;
-        }
-        return posCasillas;
-    }
-
 }

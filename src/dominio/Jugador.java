@@ -1,4 +1,4 @@
-package negocio;
+package dominio;
 
 import java.awt.Color;
 

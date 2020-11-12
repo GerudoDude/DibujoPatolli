@@ -1,10 +1,10 @@
-package negocio;
+package dominio;
 
 /**
  *
  * @author Equipo 5
  */
-public class Triangulo extends Casilla{
+public class Normal extends Casilla {
 
     @Override
     /* Metodo del comportamiento de la ficha*/

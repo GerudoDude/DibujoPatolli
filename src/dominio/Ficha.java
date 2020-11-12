@@ -1,4 +1,4 @@
-package negocio;
+package dominio;
 
 /* Librerias a utilizar */
 import dibujo.FichaJugador;
