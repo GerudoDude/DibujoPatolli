@@ -1,6 +1,7 @@
 package dibujo;
 
 /* Librearias a utilizar */
+import dominio.FichaJugador;
 import java.awt.Color;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -402,12 +403,12 @@ public class Bastidor extends javax.swing.JFrame {
     private void btnLanzarCaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLanzarCaniaActionPerformed
         // Fichas test
         if (lienzoFichas.fActual == fj) {
-            lienzoFichas.fichaActual(fj2);
+            lienzoFichas.setFichaActual(fj2);
         } else {
-            lienzoFichas.fichaActual(fj);
+            lienzoFichas.setFichaActual(fj);
         }
         if (lienzoFichas.fActual == null) {
-            lienzoFichas.fichaActual(fj2);
+            lienzoFichas.setFichaActual(fj2);
         }
 
         Cania ca = new Cania();

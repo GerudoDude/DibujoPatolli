@@ -5,6 +5,8 @@
  */
 package dibujo;
 
+import dominio.FichaJugador;
+import dominio.Posicion;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,8 +23,7 @@ import dominio.Tablero;
  */
 public class LienzoFichas extends JPanel {
 
-    private ArrayList<FichaJugador> listaFichas = new ArrayList<FichaJugador>();
-    private Posicion[] posCasillas;
+    private ArrayList<FichaJugador> listaFichasTablero = new ArrayList<FichaJugador>();
     private Tablero tablero;
     private Graphics2D g2d;
     public FichaJugador fActual = null;
@@ -48,20 +49,20 @@ public class LienzoFichas extends JPanel {
             moverFicha(this.fActual, this.fActual.getPasos());
         }
 
-        fichasPosicion();
+        dibujarTodasFichas();
 
     }
 
-    private void fichasPosicion() {
-        listaFichas.forEach((listaFicha) -> {
-            dibujarficha(listaFicha, g2d);
+    private void dibujarTodasFichas() {
+        listaFichasTablero.forEach((Ficha) -> {
+            dibujarficha(Ficha, g2d);
         });
     }
 
-    public void fichaActual(FichaJugador fichaj) {
+    public void setFichaActual(FichaJugador fichaj) {
         this.fActual = fichaj;
-        if (!listaFichas.contains(fichaj)) {
-            listaFichas.add(fichaj);
+        if (!listaFichasTablero.contains(fichaj)) {
+            listaFichasTablero.add(fichaj);
         }
     }
 

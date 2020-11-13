@@ -1,8 +1,5 @@
 package dominio;
 
-import dibujo.FichaJugador;
-import dibujo.Posicion;
-
 /**
  *
  * @author Equipo 5

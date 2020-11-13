@@ -1,4 +1,4 @@
-package dibujo;
+package dominio;
 
 /* Librerias a utilizar */
 import java.awt.Color;
@@ -100,7 +100,6 @@ public class FichaJugador {
        en el tablero */
     public Ellipse2D getFigura() {
         Ellipse2D.Double ficha = new Ellipse2D.Double(x + (ancho / 7), y + (alto / 7), ancho - (ancho / 4), alto - (alto / 4));
-
         return ficha;
     }
 }

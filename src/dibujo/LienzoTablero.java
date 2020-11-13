@@ -1,7 +1,7 @@
 package dibujo;
 
 /* Librerias a utilizar */
-import dominio.Sentido;
+import dominio.Posicion;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
 import javax.swing.JPanel;
 import dominio.Casilla;
 import dominio.Central;
@@ -34,7 +33,6 @@ public class LienzoTablero extends JPanel {
     public LienzoTablero(Tablero tablero) {
         this.tablero = tablero;
         this.colorDefault = Color.BLACK;
-
         this.sentido = true;
     }
 
@@ -64,24 +62,6 @@ public class LienzoTablero extends JPanel {
 
     }
 
-    /**
-     * Dibuja la ficha
-     *
-     * @param x Posicion x donde se va crear
-     * @param y Posicion y donde se va crear
-     * @param ancho Lo ancho que va ser la ficha
-     * @param alto Lo alto que va ser la ficha
-     * @param color Seleccionas el color de la ficha
-     * @param g2d Componente(JFrame) grafico actual
-     */
-    public void dibujarficha(int x, int y, int ancho, int alto, Color color, Graphics2D g2d) {
-        g2d.setStroke(new BasicStroke(1));
-        g2d.setColor(color);
-        Ellipse2D.Double ficha = new Ellipse2D.Double(x + (ancho / 7), y + (alto / 7), ancho - (ancho / 4), alto - (alto / 4));
-        g2d.fill(ficha);
-        g2d.setColor(Color.BLACK);
-        g2d.draw(ficha);
-    }
 
     /**
      * Dibuja el tablero Posicion
@@ -278,13 +258,6 @@ public class LienzoTablero extends JPanel {
         g.draw(rect);
     }
 
-    public void dibujarUnCuadroCentro(int x, int y, int ancho, int alto, Graphics2D g) {
-        g.setColor(Color.yellow);
-        Rectangle rect = new Rectangle();
-        rect.setBounds(x, y, ancho, alto);
-        g.draw(rect);
-        g.setColor(colorDefault);
-    }
 
     /**
      * Dibuja un cuadro curvado
@@ -299,7 +272,6 @@ public class LienzoTablero extends JPanel {
     /**
      * Dibuja un triangulo
      *
-     * @param fTriangulo
      * @param g Componente(JFrame) grafico actual
      */
     public void dibujarTriangulo(int x, int y, int ancho, int alto, Sentido sentido, Graphics2D g) {
