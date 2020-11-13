@@ -1,6 +1,7 @@
 package dibujo;
 
 /* Librerias a utilizar */
+import dominio.Sentido;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
